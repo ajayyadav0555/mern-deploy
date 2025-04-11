@@ -38,9 +38,10 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // Handle all other routes by serving index.html (SPA fallback)
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
-});
+app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
+  });
+  
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
